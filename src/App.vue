@@ -8,7 +8,7 @@
 import TodoHeader from '@/components/TodoHeader.vue';
 import TodoInput from '@/components/TodoInput.vue';
 import TodoList from '@/components/TodoList.vue';
-import { ref } from 'vue';
+import { onBeforeMount, onMounted, onUnmounted, ref } from 'vue';
 
 
 export default {
@@ -35,7 +35,21 @@ export default {
       }
       return result;
     }
-    todoItems.value = fetchTodos();
+
+    console.log('setup called');
+
+    onBeforeMount(() => {
+      console.log('onBeforeMounted called');
+      todoItems.value = fetchTodos();
+    });
+
+    onMounted(() => {
+      console.log('onMounted called');
+    });
+
+    onUnmounted(() => {
+      console.log('onUnmounted called');
+    });
 
     function addTodoItem(todo) {
       todoItems.value.push(todo);
